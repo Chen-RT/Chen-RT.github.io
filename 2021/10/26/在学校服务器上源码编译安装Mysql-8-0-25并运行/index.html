@@ -9,7 +9,7 @@
     
     <title>
         
-            MacOS安装与配置nginx |
+            在学校服务器上源码编译安装Mysql-8.0.25并运行 |
         
         Josiah&#39;s Blog
     </title>
@@ -150,7 +150,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">MacOS安装与配置nginx</span>
+            <span class="title-hover-animation">在学校服务器上源码编译安装Mysql-8.0.25并运行</span>
         </div>
 
         
@@ -168,7 +168,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-10-23 14:50:57
+        <i class="fas fa-edit"></i>&nbsp;2021-10-26 02:45:55
     </span>
     
     
@@ -177,15 +177,19 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/nginx/">nginx</a>&nbsp;
+                        <a href="/tags/Mysql-8-0-25/">Mysql-8.0.25</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/tags/MacOS/">MacOS</a>&nbsp;
+                        | <a href="/tags/%E5%8D%97%E9%82%AE/">南邮</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/tags/homebrew%E5%AE%89%E8%A3%85/">homebrew安装</a>&nbsp;
+                        | <a href="/tags/%E5%8D%97%E4%BA%AC%E9%82%AE%E7%94%B5%E5%A4%A7%E5%AD%A6/">南京邮电大学</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%AE%9E%E8%B7%B5%E5%91%A8%E4%BD%9C%E4%B8%9A/">实践周作业</a>&nbsp;
                     </li>
                 
             </ul>
@@ -208,32 +212,54 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="MacOS安装与配置nginx"><a href="#MacOS安装与配置nginx" class="headerlink" title="MacOS安装与配置nginx"></a>MacOS安装与配置nginx</h1><h2 id="一、环境"><a href="#一、环境" class="headerlink" title="一、环境"></a>一、环境</h2><p>我用的是MacBook Pro M1，版本放在图里了。以下使用的终端都是iTerm2。</p>
-<p><img src="https://www.hualigs.cn/image/6175806aa25e2.jpg"></p>
-<h2 id="二、安装Homebrew"><a href="#二、安装Homebrew" class="headerlink" title="二、安装Homebrew"></a>二、安装Homebrew</h2><p><code>Homebrew</code>是一款包管理工具，目前支持<code>macOS</code>和<code>linux</code>系统，Homebrew使用起来也很方便，如果已经安装好homebrew可以跳过这一条。</p>
-<p><code>ARM</code>版<code>Homebrew</code>需要安装在<code>/opt/homebrew</code>路径下，早期的时候需要手动创建目录执行命令，目前使用最新脚本不需要手动操作。</p>
-<p>直接执行：（这是官网给的命令，需要挂梯子）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;</span><br></pre></td></tr></table></figure>
+            <h1 id="在学校服务器上源码编译安装Mysql-8-0-25并运行"><a href="#在学校服务器上源码编译安装Mysql-8-0-25并运行" class="headerlink" title="在学校服务器上源码编译安装Mysql-8.0.25并运行"></a>在学校服务器上源码编译安装Mysql-8.0.25并运行</h1><h2 id="一、创建需要的目录"><a href="#一、创建需要的目录" class="headerlink" title="一、创建需要的目录"></a>一、创建需要的目录</h2><p>连接NJUPT即可在自己的电脑上访问上课给的服务器，我懒得写一大堆命令，在MacOS系统的Transmit App里连接了服务器，之间图形界面把题目要求的文件夹建好了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 目录如下</span></span><br><span class="line">~/mysql-8.0.25/my_build/package</span><br></pre></td></tr></table></figure>
 
-<p>国内：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i0.hdslb.com/bfs/album/ca604d2dc327c9491e3c302ef01f3a95f10f3b13.png"></p>
+<p>在<code>package</code>目录下还要</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir bin lib share etc</span><br></pre></td></tr></table></figure>
 
-<p>后面根据提示往下走就行，网上教程很多随便查查就有。</p>
-<p>安装完成之后重启终端执行：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew -v</span><br></pre></td></tr></table></figure>
+<h2 id="二、cmake编译"><a href="#二、cmake编译" class="headerlink" title="二、cmake编译"></a>二、cmake编译</h2><p>老师说服务器上的cmake版本不够编译mysql-8.0.25，有cmake3.22的安装包但不是默认环境。</p>
+<p>总之先打开终端</p>
+<p><img src="https://i0.hdslb.com/bfs/album/eb5f0c81e9bfc57bd04215d70c4e48a1645a3e2b.png"></p>
+<h3 id="1、cmake编译"><a href="#1、cmake编译" class="headerlink" title="1、cmake编译"></a>1、cmake编译</h3><p>我先copy一下PPT里给的命令看看什么效果。学校的服务器自带cmake，没有的可以自己配置一下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cmake .. \</span><br><span class="line">-DCMAKE_INSTALL_PREFIX=<span class="variable">$HOME</span>/mysql-8.0.25/&#123;YOUR_DIRECTORY&#125;/package \</span><br><span class="line">-DWITH_EXTRA_CHARSETS:STRING=all \</span><br><span class="line">-DDOWNLOAD_BOOST=1 \</span><br><span class="line">-DWITH_BOOST=../boost \</span><br><span class="line">-DWITH_EMBEDDED_SERVER:BOOL=OFF \</span><br><span class="line">-DWITH_MYISAM_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_INNOBASE_STORAGE_ENGINE=1 \</span><br><span class="line">-DENABLED_LOCAL_INFILE=1 \</span><br><span class="line">-DWITH_SSL=system \</span><br><span class="line">-DCMAKE_CXX_COMPILER=/usr/bin/g++ \</span><br><span class="line">-DCMAKE_C_COMPILER=/usr/bin/gcc</span><br></pre></td></tr></table></figure>
 
-<p>我的结果⬇️，提示版本信息安装完成。</p>
-<p><img src="https://www.hualigs.cn/image/6175807d44279.jpg"></p>
-<h2 id="三、通过Homebrew安装nginx"><a href="#三、通过Homebrew安装nginx" class="headerlink" title="三、通过Homebrew安装nginx"></a>三、通过Homebrew安装nginx</h2><p>先查一下nginx是否存在：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew search nginx</span><br></pre></td></tr></table></figure>
+<p><img src="https://i0.hdslb.com/bfs/album/3c4de1633f6e1560c465d11f84b16ed9ca6bc52d.png"></p>
+<p>没有出现报错，那接着往下，执行<code>make -j 64</code>。</p>
+<p><img src="https://i0.hdslb.com/bfs/album/c799ba86409e8fe56ee6d4f97d808282111b0e2e.png"></p>
+<p>这个报错出现了超多次，使用<code>cmake -version</code>看了一下版本是3.22。<code>g++ -version</code>看g++版本是10.0.1。</p>
+<p>他妈的什么申必服务器，Google解决方案都要sudo但是学生账号没有服务器的sudo权限。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++: 错误：unrecognized <span class="built_in">command</span> line option ‘-std=c++14’</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://s3.bmp.ovh/imgs/2021/10/b04a033de1373b85.png"></p>
-<p>然后执行：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install nginx</span><br></pre></td></tr></table></figure>
+<h3 id="2、解决g-无法解析c-14的问题"><a href="#2、解决g-无法解析c-14的问题" class="headerlink" title="2、解决g++无法解析c++14的问题"></a>2、解决g++无法解析c++14的问题</h3><p>该说不说，学校这个服务器应该是被其他学生玩坏了，查了一下<code>/user/bin</code>目录下的<code>gcc</code>版本才4.8.5，害我大半夜在这疯狂找cmake指定gcc的方法。</p>
+<p><img src="https://i0.hdslb.com/bfs/album/7143f9a04ccd19d1f663ef6584a40d115a8e35d7.png"></p>
+<p>发现问题在/usr/bin下的gcc版本不够，那么干脆把<code>B19031717</code>文件夹下东西都删了，重新创建了<code>package</code>和下面的<code>bin</code>等四个目录。然后重新cmake编译一下。</p>
+<p>执行<code>find / -name &quot;gcc&quot;</code>命令发现gcc文件在/usr/local/bin下也有一个，并且版本是10.0.1，重新cmake编译时记得把<code>DCMAKE_CXX_COMPILER</code>和<code>DCMAKE_C_COMPILER</code>两个路径改成gcc版本高于5.2的路径（mysql-8.0.25需要gcc5.2以上）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cmake .. \</span><br><span class="line">-DCMAKE_INSTALL_PREFIX=<span class="variable">$HOME</span>/mysql-8.0.25/&#123;YOUR_DIRECTORY&#125;/package \</span><br><span class="line">-DWITH_EXTRA_CHARSETS:STRING=all \</span><br><span class="line">-DDOWNLOAD_BOOST=1 \</span><br><span class="line">-DWITH_BOOST=../boost \</span><br><span class="line">-DWITH_EMBEDDED_SERVER:BOOL=OFF \</span><br><span class="line">-DWITH_MYISAM_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_INNOBASE_STORAGE_ENGINE=1 \</span><br><span class="line">-DENABLED_LOCAL_INFILE=1 \</span><br><span class="line">-DWITH_SSL=system \</span><br><span class="line">-DCMAKE_CXX_COMPILER=/usr/<span class="built_in">local</span>/bin/g++ \</span><br><span class="line">-DCMAKE_C_COMPILER=/usr/<span class="built_in">local</span>/bin/gcc</span><br></pre></td></tr></table></figure>
 
-<p>等待一会安装就完成了。然后使用<code>brew info nginx</code>命令查看nginx安装目录等信息。红色部分是nginx.config的位置，在旧版本Mac中应该是<code>/usr/local/etc/nginx</code>目录下，这里要注意一下。</p>
-<p><img src="https://www.hualigs.cn/image/6175807d4467a.jpg"></p>
-<p>用vim编辑nginx.conf配置自己需要的东西吧。</p>
+<p>编译未报错，然后执行<code>make -j 64</code></p>
+<p><img src="https://i0.hdslb.com/bfs/album/fcf924b066b639cae71b8c8303ed6c304f1552c9.png"></p>
+<p>执行<code>make install</code></p>
+<p><img src="https://i0.hdslb.com/bfs/album/83dc8b3cd249f5c410c84c4c6f46f52976468256.png"></p>
+<p>执行<code>cd package</code>然后执行<code>cp -r bin lib share etc ~/</code>与 <code>cd</code></p>
+<p>现在根目录就能看到<code>bin、lib、share、etc</code>四个文件夹，执行<code>vim etc/my.cnf</code>并写入如下内容。</p>
+<p><img src="https://i0.hdslb.com/bfs/album/a38b04d7edea5dae3f076b47ecf5504712c36c0d.png"></p>
+<h3 id="3、安装、初始化与启动"><a href="#3、安装、初始化与启动" class="headerlink" title="3、安装、初始化与启动"></a>3、安装、初始化与启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">mkdir -p ~/data/data ~/data/redo ~/data/tmp ~/data/binlog ~/data/relaylog ~/data/undo</span><br><span class="line">mkdir <span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 初始化</span></span><br><span class="line">./bin/mysqld --defaults-file=<span class="string">&quot;<span class="variable">$HOME</span>/etc/my.cnf&quot;</span> --initialize-insecure --datadir=<span class="string">&quot;<span class="variable">$HOME</span>/data/data&quot;</span> </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动</span></span><br><span class="line">./bin/mysqld --defaults-file=<span class="string">&quot;<span class="variable">$HOME</span>/etc/my.cnf&quot;</span> --datadir=<span class="string">&quot;<span class="variable">$HOME</span>/data/data&quot;</span> --pid-file=<span class="string">&quot;<span class="variable">$HOME</span>/bin/mysqld1.pid&quot;</span> &amp;</span><br></pre></td></tr></table></figure>
+
+<p>安装没出现报错，但是初始化时产生了奇怪的问题。貌似是因为升级<code>gcc</code>时，生成的动态库没有替换老版本<code>gcc</code>的动态库。</p>
+<p><img src="https://i0.hdslb.com/bfs/album/1750bed04c7511f3e7eb55f569c7b82be153887d.png"></p>
+<p>执行一下<code>strings /usr/lib64/libstdc++.so.6 | grep GLIBC</code>命令，发现如GLIBCXX的版本并不匹配。</p>
+<p><img src="https://i0.hdslb.com/bfs/album/e437c6df9963bae45abb32f9d2d8120b2b795634.png"></p>
+<p>执行<code>find / -name &quot;libstdc++.so*&quot;</code>查找编译gcc时生成的最新动态库。发现了<code>/usr/local/lib64/libstdc++.so.6.0.28 //最新动态库</code></p>
+<p>而在上图中使用的库是<code>/usr/lib64/libstdc++.so.6</code>。</p>
+<p><img src="https://i0.hdslb.com/bfs/album/a0d88d314464580468a532f732076ce033e38411.png"></p>
+<p>我们需要修改系统默认动态库的指向，即：重建默认库的软连接。但是学生账号没有权限，寄。</p>
+<p>气死了，马上到最后一步了，现在没有权限什么也干不了，早知道在自己的服务器上跑了！！</p>
 
         </div>
 
@@ -241,11 +267,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：MacOS安装与配置nginx</li>
+        <li>Post title：在学校服务器上源码编译安装Mysql-8.0.25并运行</li>
         <li>Post author：Josiah</li>
-        <li>Create time：2021-10-23 14:50:57</li>
+        <li>Create time：2021-10-26 02:45:55</li>
         <li>
-            Post link：https://keep.xpoet.cn//2021/10/23/MacOS安装与配置nginx/
+            Post link：https://keep.xpoet.cn//2021/10/26/在学校服务器上源码编译安装Mysql-8-0-25并运行/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -259,21 +285,21 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2021/10/26/%E5%9C%A8%E5%AD%A6%E6%A0%A1%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85Mysql-8-0-25%E5%B9%B6%E8%BF%90%E8%A1%8C/"
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/10/23/MacOS%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AEnginx/"
                         >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">在学校服务器上源码编译安装Mysql-8.0.25并运行</span>
-                                <span class="post-nav-item">Prev posts</span>
+                                <span class="post-nav-title-item">MacOS安装与配置nginx</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
                             </span>
                         </a>
                     </div>
-                
                 
             </div>
         
@@ -474,7 +500,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MacOS%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AEnginx"><span class="nav-text">MacOS安装与配置nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%8E%AF%E5%A2%83"><span class="nav-text">一、环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85Homebrew"><span class="nav-text">二、安装Homebrew</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E9%80%9A%E8%BF%87Homebrew%E5%AE%89%E8%A3%85nginx"><span class="nav-text">三、通过Homebrew安装nginx</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8%E5%AD%A6%E6%A0%A1%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85Mysql-8-0-25%E5%B9%B6%E8%BF%90%E8%A1%8C"><span class="nav-text">在学校服务器上源码编译安装Mysql-8.0.25并运行</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%88%9B%E5%BB%BA%E9%9C%80%E8%A6%81%E7%9A%84%E7%9B%AE%E5%BD%95"><span class="nav-text">一、创建需要的目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81cmake%E7%BC%96%E8%AF%91"><span class="nav-text">二、cmake编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81cmake%E7%BC%96%E8%AF%91"><span class="nav-text">1、cmake编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E8%A7%A3%E5%86%B3g-%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90c-14%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">2、解决g++无法解析c++14的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%AE%89%E8%A3%85%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E5%90%AF%E5%8A%A8"><span class="nav-text">3、安装、初始化与启动</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>

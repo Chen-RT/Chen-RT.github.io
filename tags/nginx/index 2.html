@@ -9,7 +9,7 @@
     
     <title>
         
-            MacOS安装与配置nginx |
+            Tag: nginx |
         
         Josiah&#39;s Blog
     </title>
@@ -23,7 +23,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"lknnz.link","root":"/","language":"en","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.jpeg","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.jpg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.jpeg","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.jpg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -134,95 +134,42 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="article-content-container">
-
-        <div class="article-title">
-            <span class="title-hover-animation">MacOS安装与配置nginx</span>
+    <div class="tag-container">
+        <div class="tag-name"><i class="fas fa-tag"></i>&nbsp;nginx
         </div>
-
-        
-            <div class="article-header">
-                <div class="avatar">
-                    <img src="/images/avatar.jpeg">
-                </div>
-                <div class="info">
-                    <div class="author">
-                        <span class="name">Josiah</span>
-                        
-                            <span class="author-label">Lv1</span>
-                        
-                    </div>
-                    <div class="meta-info">
-                        <div class="article-meta-info">
-    <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-10-23 14:50:57
-    </span>
+        <div class="tag-post-list">
+            
+<div class="archive-list-container">
     
-    
-
-    
-    
-    
+        <section class="archive-item">
+            <div class="archive-item-header">
+                <span class="archive-year">2021</span>
+                <span class="archive-year-post-count">[1]</span>
+            </div>
+            <ul class="article-list">
+                
+                    <li class="article-item">
+                        <a class="article-title"
+                           href="/2021/10/23/MacOS%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AEnginx/"
+                        >MacOS安装与配置nginx</a>
+                        <span class="article-date">10-23</span>
+                    </li>
+                
+            </ul>
+        </section>
     
 </div>
 
-                    </div>
-                </div>
-            </div>
-        
-
-        <div class="article-content markdown-body">
-            <h1 id="MacOS安装与配置nginx"><a href="#MacOS安装与配置nginx" class="headerlink" title="MacOS安装与配置nginx"></a>MacOS安装与配置nginx</h1><h2 id="一、环境"><a href="#一、环境" class="headerlink" title="一、环境"></a>一、环境</h2><p>我用的是MacBook Pro M1，版本放在图里了。以下使用的终端都是iTerm2。</p>
-<p><img src="https://www.hualigs.cn/image/6175806aa25e2.jpg"></p>
-<h2 id="二、安装Homebrew"><a href="#二、安装Homebrew" class="headerlink" title="二、安装Homebrew"></a>二、安装Homebrew</h2><p><code>Homebrew</code>是一款包管理工具，目前支持<code>macOS</code>和<code>linux</code>系统，Homebrew使用起来也很方便，如果已经安装好homebrew可以跳过这一条。</p>
-<p><code>ARM</code>版<code>Homebrew</code>需要安装在<code>/opt/homebrew</code>路径下，早期的时候需要手动创建目录执行命令，目前使用最新脚本不需要手动操作。</p>
-<p>直接执行：（这是官网给的命令，需要挂梯子）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;</span><br></pre></td></tr></table></figure>
-
-<p>国内：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;</span><br></pre></td></tr></table></figure>
-
-<p>后面根据提示往下走就行，网上教程很多随便查查就有。</p>
-<p>安装完成之后重启终端执行：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew -v</span><br></pre></td></tr></table></figure>
-
-<p>我的结果⬇️，提示版本信息安装完成。</p>
-<p><img src="https://www.hualigs.cn/image/6175807d44279.jpg"></p>
-<h2 id="三、通过Homebrew安装nginx"><a href="#三、通过Homebrew安装nginx" class="headerlink" title="三、通过Homebrew安装nginx"></a>三、通过Homebrew安装nginx</h2><p>先查一下nginx是否存在：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew search nginx</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s3.bmp.ovh/imgs/2021/10/b04a033de1373b85.png"></p>
-<p>然后执行：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install nginx</span><br></pre></td></tr></table></figure>
-
-<p>等待一会安装就完成了。然后使用<code>brew info nginx</code>命令查看nginx安装目录等信息。红色部分是nginx.config的位置，在旧版本Mac中应该是<code>/usr/local/etc/nginx</code>目录下，这里要注意一下。</p>
-<p><img src="https://www.hualigs.cn/image/6175807d4467a.jpg"></p>
-<p>用vim编辑nginx.conf配置自己需要的东西吧。</p>
-
         </div>
+    </div>
 
-        
-            <div class="post-copyright-info">
-                <div class="article-copyright-info-container">
-    <ul>
-        <li>Post title：MacOS安装与配置nginx</li>
-        <li>Post author：Josiah</li>
-        <li>Create time：2021-10-23 14:50:57</li>
-        <li>
-            Post link：https://keep.xpoet.cn//2021/10/23/MacOS安装与配置nginx/
-        </li>
-        <li>
-            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
-        </li>
-    </ul>
+    <div class="tag-paginator">
+        <div class="paginator">
+    
+
+    
 </div>
 
-            </div>
-        
-
-        
-
-        
     </div>
 </div>
 
@@ -244,6 +191,20 @@
             2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Josiah</a>
         </div>
         
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
         <div class="theme-info info-item">
             Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
         </div>
@@ -255,23 +216,6 @@
         </div>
     </div>
 
-    
-        <div class="post-tools">
-            <div class="post-tools-container">
-    <ul class="tools-list">
-        <!-- TOC aside toggle -->
-        
-            <li class="tools-item page-aside-toggle">
-                <i class="fas fa-outdent"></i>
-            </li>
-        
-
-        <!-- go comment -->
-        
-    </ul>
-</div>
-
-        </div>
     
 
     <div class="right-bottom-side-tools">
@@ -317,14 +261,6 @@
 
     </div>
 
-    
-        <aside class="page-aside">
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MacOS%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AEnginx"><span class="nav-text">MacOS安装与配置nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%8E%AF%E5%A2%83"><span class="nav-text">一、环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85Homebrew"><span class="nav-text">二、安装Homebrew</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E9%80%9A%E8%BF%87Homebrew%E5%AE%89%E8%A3%85nginx"><span class="nav-text">三、通过Homebrew安装nginx</span></a></li></ol></li></ol>
-    </div>
-</div>
-        </aside>
     
 
     <div class="image-viewer-container">
@@ -394,14 +330,6 @@
 
 
 <div class="post-scripts">
-    
-        
-<script src="/js/left-side-toggle.js"></script>
-
-<script src="/js/libs/anime.min.js"></script>
-
-<script src="/js/toc.js"></script>
-
     
 </div>
 

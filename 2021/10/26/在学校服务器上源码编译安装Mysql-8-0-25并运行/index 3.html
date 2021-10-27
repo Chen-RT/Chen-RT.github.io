@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Josiah">
+    
+    <title>
+        
+            在学校服务器上源码编译安装Mysql-8.0.25并运行 |
+        
+        Josiah&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"lknnz.link","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.jpeg","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.jpg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Josiah&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">LINKS</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">在学校服务器上源码编译安装Mysql-8.0.25并运行</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.jpeg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Josiah</span>
+                        
+                            <span class="author-label">newBloger</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2021-10-26 02:45:55
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Mysql-8-0-25/">Mysql-8.0.25</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%8D%97%E9%82%AE/">南邮</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%8D%97%E4%BA%AC%E9%82%AE%E7%94%B5%E5%A4%A7%E5%AD%A6/">南京邮电大学</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%AE%9E%E8%B7%B5%E5%91%A8%E4%BD%9C%E4%B8%9A/">实践周作业</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="在学校服务器上源码编译安装Mysql-8-0-25并运行"><a href="#在学校服务器上源码编译安装Mysql-8-0-25并运行" class="headerlink" title="在学校服务器上源码编译安装Mysql-8.0.25并运行"></a>在学校服务器上源码编译安装Mysql-8.0.25并运行</h1><h2 id="一、创建需要的目录"><a href="#一、创建需要的目录" class="headerlink" title="一、创建需要的目录"></a>一、创建需要的目录</h2><p>连接NJUPT即可在自己的电脑上访问上课给的服务器，我懒得写一大堆命令，在MacOS系统的Transmit App里连接了服务器，之间图形界面把题目要求的文件夹建好了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 目录如下</span></span><br><span class="line">~/mysql-8.0.25/my_build/package</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s3.bmp.ovh/imgs/2021/10/00e53eae5aef0551.png"></p>
+<p>在<code>package</code>目录下还要</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir bin lib share etc</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、cmake编译"><a href="#二、cmake编译" class="headerlink" title="二、cmake编译"></a>二、cmake编译</h2><p>老师说服务器上的cmake版本不够编译mysql-8.0.25，有cmake3.22的安装包但不是默认环境。</p>
+<p>总之先打开终端</p>
+<p><img src="https://s3.bmp.ovh/imgs/2021/10/b273f661b57b926d.png"></p>
+<h3 id="1、cmake编译"><a href="#1、cmake编译" class="headerlink" title="1、cmake编译"></a>1、cmake编译</h3><p>我先copy一下PPT里给的命令看看什么效果。学校的服务器自带cmake，没有的可以自己配置一下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cmake .. \</span><br><span class="line">-DCMAKE_INSTALL_PREFIX=<span class="variable">$HOME</span>/mysql-8.0.25/&#123;YOUR_DIRECTORY&#125;/package \</span><br><span class="line">-DWITH_EXTRA_CHARSETS:STRING=all \</span><br><span class="line">-DDOWNLOAD_BOOST=1 \</span><br><span class="line">-DWITH_BOOST=../boost \</span><br><span class="line">-DWITH_EMBEDDED_SERVER:BOOL=OFF \</span><br><span class="line">-DWITH_MYISAM_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_INNOBASE_STORAGE_ENGINE=1 \</span><br><span class="line">-DENABLED_LOCAL_INFILE=1 \</span><br><span class="line">-DWITH_SSL=system \</span><br><span class="line">-DCMAKE_CXX_COMPILER=/usr/bin/g++ \</span><br><span class="line">-DCMAKE_C_COMPILER=/usr/bin/gcc</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s3.bmp.ovh/imgs/2021/10/a67be53c1e9cd41d.png"></p>
+<p>没有出现报错，那接着往下，执行<code>make -j 64</code>。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2021/10/03092b327d32ea9c.png"></p>
+<p>这个报错出现了超多次，使用<code>cmake -version</code>看了一下版本是3.22。<code>g++ -version</code>看g++版本是10.0.1。</p>
+<p>他妈的什么申必服务器，Google解决方案都要sudo但是学生账号没有服务器的sudo权限。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++: 错误：unrecognized <span class="built_in">command</span> line option ‘-std=c++14’</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、解决g-无法解析c-14的问题"><a href="#2、解决g-无法解析c-14的问题" class="headerlink" title="2、解决g++无法解析c++14的问题"></a>2、解决g++无法解析c++14的问题</h3><p>该说不说，学校这个服务器应该是被其他学生玩坏了，查了一下<code>/user/bin</code>目录下的<code>gcc</code>版本才4.8.5，害我大半夜在这疯狂找cmake指定gcc的方法。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2021/10/82c2058e30124f50.png"></p>
+<p>发现问题在/usr/bin下的gcc版本不够，那么干脆把<code>B19031717</code>文件夹下东西都删了，重新创建了<code>package</code>和下面的<code>bin</code>等四个目录。然后重新cmake编译一下。</p>
+<p>执行<code>find / -name &quot;gcc&quot;</code>命令发现gcc文件在/usr/local/bin下也有一个，并且版本是10.0.1，重新cmake编译时记得把<code>DCMAKE_CXX_COMPILER</code>和<code>DCMAKE_C_COMPILER</code>两个路径改成gcc版本高于5.2的路径（mysql-8.0.25需要gcc5.2以上）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cmake .. \</span><br><span class="line">-DCMAKE_INSTALL_PREFIX=<span class="variable">$HOME</span>/mysql-8.0.25/&#123;YOUR_DIRECTORY&#125;/package \</span><br><span class="line">-DWITH_EXTRA_CHARSETS:STRING=all \</span><br><span class="line">-DDOWNLOAD_BOOST=1 \</span><br><span class="line">-DWITH_BOOST=../boost \</span><br><span class="line">-DWITH_EMBEDDED_SERVER:BOOL=OFF \</span><br><span class="line">-DWITH_MYISAM_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_INNOBASE_STORAGE_ENGINE=1 \</span><br><span class="line">-DENABLED_LOCAL_INFILE=1 \</span><br><span class="line">-DWITH_SSL=system \</span><br><span class="line">-DCMAKE_CXX_COMPILER=/usr/<span class="built_in">local</span>/bin/g++ \</span><br><span class="line">-DCMAKE_C_COMPILER=/usr/<span class="built_in">local</span>/bin/gcc</span><br></pre></td></tr></table></figure>
+
+<p>编译未报错，然后执行<code>make -j 64</code></p>
+<p><img src="https://s3.bmp.ovh/imgs/2021/10/8cc3edfcdddaab26.png"></p>
+<p>执行<code>make install</code></p>
+<p><img src="https://s3.bmp.ovh/imgs/2021/10/71e05e718a4ac811.png"></p>
+<p>执行<code>cd package</code>然后执行<code>cp -r bin lib share etc ~/</code>与 <code>cd</code></p>
+<p>现在根目录就能看到<code>bin、lib、share、etc</code>四个文件夹，执行<code>vim etc/my.cnf</code>并写入如下内容。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2021/10/50f061e7c03bcd44.png"></p>
+<h3 id="3、安装、初始化与启动"><a href="#3、安装、初始化与启动" class="headerlink" title="3、安装、初始化与启动"></a>3、安装、初始化与启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">mkdir -p ~/data/data ~/data/redo ~/data/tmp ~/data/binlog ~/data/relaylog ~/data/undo</span><br><span class="line">mkdir <span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 初始化</span></span><br><span class="line">./bin/mysqld --defaults-file=<span class="string">&quot;<span class="variable">$HOME</span>/etc/my.cnf&quot;</span> --initialize-insecure --datadir=<span class="string">&quot;<span class="variable">$HOME</span>/data/data&quot;</span> </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动</span></span><br><span class="line">./bin/mysqld --defaults-file=<span class="string">&quot;<span class="variable">$HOME</span>/etc/my.cnf&quot;</span> --datadir=<span class="string">&quot;<span class="variable">$HOME</span>/data/data&quot;</span> --pid-file=<span class="string">&quot;<span class="variable">$HOME</span>/bin/mysqld1.pid&quot;</span> &amp;</span><br></pre></td></tr></table></figure>
+
+<p>安装没出现报错，但是初始化时产生了奇怪的问题。貌似是因为升级<code>gcc</code>时，生成的动态库没有替换老版本<code>gcc</code>的动态库。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2021/10/7b82517a8f6df407.png"></p>
+<p>执行一下<code>strings /usr/lib64/libstdc++.so.6 | grep GLIBC</code>命令，发现如GLIBCXX的版本并不匹配。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2021/10/0b871c796eadd4e8.png"></p>
+<p>执行<code>find / -name &quot;libstdc++.so*&quot;</code>查找编译gcc时生成的最新动态库。发现了<code>/usr/local/lib64/libstdc++.so.6.0.28 //最新动态库</code></p>
+<p>而在上图中使用的库是<code>/usr/lib64/libstdc++.so.6</code>。</p>
+<p><img src="https://www.hualigs.cn/image/61773b147d0ed.jpg"></p>
+<p>我们需要修改系统默认动态库的指向，即：重建默认库的软连接。但是学生账号没有权限，寄。</p>
+<p>气死了，马上到最后一步了，现在没有权限什么也干不了，早知道在自己的服务器上跑了！！</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：在学校服务器上源码编译安装Mysql-8.0.25并运行</li>
+        <li>Post author：Josiah</li>
+        <li>Create time：2021-10-26 02:45:55</li>
+        <li>
+            Post link：https://keep.xpoet.cn//2021/10/26/在学校服务器上源码编译安装Mysql-8-0-25并运行/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/10/23/MacOS%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AEnginx/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">MacOS安装与配置nginx</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: '0HYiiybtGRiBUUcSXjNDbdNV-gzGzoHsz',
+                    appKey: 'YoNwyGfsKd2OpoWdmJwa7TdJ',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '😜 尽情吐槽吧~',
+                    lang: 'en'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'Josiah';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Josiah</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8%E5%AD%A6%E6%A0%A1%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85Mysql-8-0-25%E5%B9%B6%E8%BF%90%E8%A1%8C"><span class="nav-text">在学校服务器上源码编译安装Mysql-8.0.25并运行</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%88%9B%E5%BB%BA%E9%9C%80%E8%A6%81%E7%9A%84%E7%9B%AE%E5%BD%95"><span class="nav-text">一、创建需要的目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81cmake%E7%BC%96%E8%AF%91"><span class="nav-text">二、cmake编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81cmake%E7%BC%96%E8%AF%91"><span class="nav-text">1、cmake编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E8%A7%A3%E5%86%B3g-%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90c-14%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">2、解决g++无法解析c++14的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%AE%89%E8%A3%85%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E5%90%AF%E5%8A%A8"><span class="nav-text">3、安装、初始化与启动</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

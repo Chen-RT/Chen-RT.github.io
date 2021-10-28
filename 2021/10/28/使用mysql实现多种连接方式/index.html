@@ -9,7 +9,7 @@
     
     <title>
         
-            在学校服务器上源码编译安装Mysql-8.0.25并运行 |
+            使用mysql实现七种连接方式 |
         
         Josiah&#39;s Blog
     </title>
@@ -150,7 +150,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">在学校服务器上源码编译安装Mysql-8.0.25并运行</span>
+            <span class="title-hover-animation">使用mysql实现七种连接方式</span>
         </div>
 
         
@@ -168,7 +168,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-10-26 02:45:55
+        <i class="fas fa-edit"></i>&nbsp;2021-10-28 11:56:43
     </span>
     
     
@@ -185,11 +185,15 @@
                     </li>
                 
                     <li>
-                        | <a href="/tags/Mysql-8-0-25/">Mysql-8.0.25</a>&nbsp;
+                        | <a href="/tags/mysql/">mysql</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/tags/%E5%AE%9E%E8%B7%B5%E5%91%A8%E4%BD%9C%E4%B8%9A/">实践周作业</a>&nbsp;
+                        | <a href="/tags/%E8%BF%9E%E8%A1%A8/">连表</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E8%B4%AA%E5%A9%AA%E7%AE%97%E6%B3%95/">贪婪算法</a>&nbsp;
                     </li>
                 
             </ul>
@@ -212,54 +216,9 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="在学校服务器上源码编译安装Mysql-8-0-25并运行"><a href="#在学校服务器上源码编译安装Mysql-8-0-25并运行" class="headerlink" title="在学校服务器上源码编译安装Mysql-8.0.25并运行"></a>在学校服务器上源码编译安装Mysql-8.0.25并运行</h1><h2 id="一、创建需要的目录"><a href="#一、创建需要的目录" class="headerlink" title="一、创建需要的目录"></a>一、创建需要的目录</h2><p>连接NJUPT即可在自己的电脑上访问上课给的服务器，我懒得写一大堆命令，在MacOS系统的Transmit App里连接了服务器，之间图形界面把题目要求的文件夹建好了。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 目录如下</span></span><br><span class="line">~/mysql-8.0.25/my_build/package</span><br></pre></td></tr></table></figure>
+            <h1 id="使用mysql实现七种连接方式"><a href="#使用mysql实现七种连接方式" class="headerlink" title="使用mysql实现七种连接方式"></a>使用mysql实现七种连接方式</h1><p>先建立两张有外键关联的表：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE db0206;</span><br><span class="line">USE db0206;</span><br><span class="line"></span><br><span class="line">CREATE TABLE `db0206`.`tbl_dept`(  </span><br><span class="line">  `id` INT(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `deptName` VARCHAR(30),</span><br><span class="line">  `locAdd` VARCHAR(40),</span><br><span class="line">  PRIMARY KEY (`id`)</span><br><span class="line">) ENGINE=INNODB CHARSET=utf;</span><br><span class="line"></span><br><span class="line">CREATE TABLE `db0206`.`tbl_emp`(  </span><br><span class="line">  `id` INT(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `name` VARCHAR(20),</span><br><span class="line">  `deptId` INT(11),</span><br><span class="line">  PRIMARY KEY (`id`),</span><br><span class="line">  FOREIGN KEY (`deptId`) REFERENCES `db0206`.`tb_dept`(`id`)</span><br><span class="line">) ENGINE=INNODB CHARSET=utf8;</span><br><span class="line">/*插入数据*/</span><br><span class="line">INSERT INTO tbl_dept(deptName,locAdd) VALUES(&#x27;RD&#x27;,11);</span><br><span class="line">INSERT INTO tbl_dept(deptName,locAdd) VALUES(&#x27;HR&#x27;,12);</span><br><span class="line">INSERT INTO tbl_dept(deptName,locAdd) VALUES(&#x27;MK&#x27;,13);</span><br><span class="line">INSERT INTO tbl_dept(deptName,locAdd) VALUES(&#x27;MIS&#x27;,14);</span><br><span class="line">INSERT INTO tbl_dept(deptName,locAdd) VALUES(&#x27;FD&#x27;,15);</span><br><span class="line"></span><br><span class="line">INSERT INTO tbl_emp(NAME,deptId) VALUES(&#x27;z3&#x27;,1);</span><br><span class="line">INSERT INTO tbl_emp(NAME,deptId) VALUES(&#x27;z4&#x27;,1);</span><br><span class="line">INSERT INTO tbl_emp(NAME,deptId) VALUES(&#x27;z5&#x27;,1);</span><br><span class="line"></span><br><span class="line">INSERT INTO tbl_emp(NAME,deptId) VALUES(&#x27;w5&#x27;,2);</span><br><span class="line">INSERT INTO tbl_emp(NAME,deptId) VALUES(&#x27;w6&#x27;,2);</span><br><span class="line"></span><br><span class="line">INSERT INTO tbl_emp(NAME,deptId) VALUES(&#x27;s7&#x27;,3);</span><br><span class="line"></span><br><span class="line">INSERT INTO tbl_emp(NAME,deptId) VALUES(&#x27;s8&#x27;,4);</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://s3.bmp.ovh/imgs/2021/10/00e53eae5aef0551.png"></p>
-<p>在<code>package</code>目录下还要</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir bin lib share etc</span><br></pre></td></tr></table></figure>
-
-<h2 id="二、cmake编译"><a href="#二、cmake编译" class="headerlink" title="二、cmake编译"></a>二、cmake编译</h2><p>老师说服务器上的cmake版本不够编译mysql-8.0.25，有cmake3.22的安装包但不是默认环境。</p>
-<p>总之先打开终端</p>
-<p><img src="https://s3.bmp.ovh/imgs/2021/10/b273f661b57b926d.png"></p>
-<h3 id="1、cmake编译"><a href="#1、cmake编译" class="headerlink" title="1、cmake编译"></a>1、cmake编译</h3><p>我先copy一下PPT里给的命令看看什么效果。学校的服务器自带cmake，没有的可以自己配置一下。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cmake .. \</span><br><span class="line">-DCMAKE_INSTALL_PREFIX=<span class="variable">$HOME</span>/mysql-8.0.25/&#123;YOUR_DIRECTORY&#125;/package \</span><br><span class="line">-DWITH_EXTRA_CHARSETS:STRING=all \</span><br><span class="line">-DDOWNLOAD_BOOST=1 \</span><br><span class="line">-DWITH_BOOST=../boost \</span><br><span class="line">-DWITH_EMBEDDED_SERVER:BOOL=OFF \</span><br><span class="line">-DWITH_MYISAM_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_INNOBASE_STORAGE_ENGINE=1 \</span><br><span class="line">-DENABLED_LOCAL_INFILE=1 \</span><br><span class="line">-DWITH_SSL=system \</span><br><span class="line">-DCMAKE_CXX_COMPILER=/usr/bin/g++ \</span><br><span class="line">-DCMAKE_C_COMPILER=/usr/bin/gcc</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s3.bmp.ovh/imgs/2021/10/a67be53c1e9cd41d.png"></p>
-<p>没有出现报错，那接着往下，执行<code>make -j 64</code>。</p>
-<p><img src="https://s3.bmp.ovh/imgs/2021/10/03092b327d32ea9c.png"></p>
-<p>这个报错出现了超多次，使用<code>cmake -version</code>看了一下版本是3.22。<code>g++ -version</code>看g++版本是10.0.1。</p>
-<p>他妈的什么申必服务器，Google解决方案都要sudo但是学生账号没有服务器的sudo权限。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++: 错误：unrecognized <span class="built_in">command</span> line option ‘-std=c++14’</span><br></pre></td></tr></table></figure>
-
-<h3 id="2、解决g-无法解析c-14的问题"><a href="#2、解决g-无法解析c-14的问题" class="headerlink" title="2、解决g++无法解析c++14的问题"></a>2、解决g++无法解析c++14的问题</h3><p>该说不说，学校这个服务器应该是被其他学生玩坏了，查了一下<code>/user/bin</code>目录下的<code>gcc</code>版本才4.8.5，害我大半夜在这疯狂找cmake指定gcc的方法。</p>
-<p><img src="https://s3.bmp.ovh/imgs/2021/10/82c2058e30124f50.png"></p>
-<p>发现问题在/usr/bin下的gcc版本不够，那么干脆把<code>B19031717</code>文件夹下东西都删了，重新创建了<code>package</code>和下面的<code>bin</code>等四个目录。然后重新cmake编译一下。</p>
-<p>执行<code>find / -name &quot;gcc&quot;</code>命令发现gcc文件在/usr/local/bin下也有一个，并且版本是10.0.1，重新cmake编译时记得把<code>DCMAKE_CXX_COMPILER</code>和<code>DCMAKE_C_COMPILER</code>两个路径改成gcc版本高于5.2的路径（mysql-8.0.25需要gcc5.2以上）。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cmake .. \</span><br><span class="line">-DCMAKE_INSTALL_PREFIX=<span class="variable">$HOME</span>/mysql-8.0.25/&#123;YOUR_DIRECTORY&#125;/package \</span><br><span class="line">-DWITH_EXTRA_CHARSETS:STRING=all \</span><br><span class="line">-DDOWNLOAD_BOOST=1 \</span><br><span class="line">-DWITH_BOOST=../boost \</span><br><span class="line">-DWITH_EMBEDDED_SERVER:BOOL=OFF \</span><br><span class="line">-DWITH_MYISAM_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_INNOBASE_STORAGE_ENGINE=1 \</span><br><span class="line">-DENABLED_LOCAL_INFILE=1 \</span><br><span class="line">-DWITH_SSL=system \</span><br><span class="line">-DCMAKE_CXX_COMPILER=/usr/<span class="built_in">local</span>/bin/g++ \</span><br><span class="line">-DCMAKE_C_COMPILER=/usr/<span class="built_in">local</span>/bin/gcc</span><br></pre></td></tr></table></figure>
-
-<p>编译未报错，然后执行<code>make -j 64</code></p>
-<p><img src="https://s3.bmp.ovh/imgs/2021/10/8cc3edfcdddaab26.png"></p>
-<p>执行<code>make install</code></p>
-<p><img src="https://s3.bmp.ovh/imgs/2021/10/71e05e718a4ac811.png"></p>
-<p>执行<code>cd package</code>然后执行<code>cp -r bin lib share etc ~/</code>与 <code>cd</code></p>
-<p>现在根目录就能看到<code>bin、lib、share、etc</code>四个文件夹，执行<code>vim etc/my.cnf</code>并写入如下内容。</p>
-<p><img src="https://s3.bmp.ovh/imgs/2021/10/50f061e7c03bcd44.png"></p>
-<h3 id="3、安装、初始化与启动"><a href="#3、安装、初始化与启动" class="headerlink" title="3、安装、初始化与启动"></a>3、安装、初始化与启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">mkdir -p ~/data/data ~/data/redo ~/data/tmp ~/data/binlog ~/data/relaylog ~/data/undo</span><br><span class="line">mkdir <span class="built_in">log</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 初始化</span></span><br><span class="line">./bin/mysqld --defaults-file=<span class="string">&quot;<span class="variable">$HOME</span>/etc/my.cnf&quot;</span> --initialize-insecure --datadir=<span class="string">&quot;<span class="variable">$HOME</span>/data/data&quot;</span> </span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动</span></span><br><span class="line">./bin/mysqld --defaults-file=<span class="string">&quot;<span class="variable">$HOME</span>/etc/my.cnf&quot;</span> --datadir=<span class="string">&quot;<span class="variable">$HOME</span>/data/data&quot;</span> --pid-file=<span class="string">&quot;<span class="variable">$HOME</span>/bin/mysqld1.pid&quot;</span> &amp;</span><br></pre></td></tr></table></figure>
-
-<p>安装没出现报错，但是初始化时产生了奇怪的问题。貌似是因为升级<code>gcc</code>时，生成的动态库没有替换老版本<code>gcc</code>的动态库。</p>
-<p><img src="https://s3.bmp.ovh/imgs/2021/10/7b82517a8f6df407.png"></p>
-<p>执行一下<code>strings /usr/lib64/libstdc++.so.6 | grep GLIBC</code>命令，发现如GLIBCXX的版本并不匹配。</p>
-<p><img src="https://s3.bmp.ovh/imgs/2021/10/0b871c796eadd4e8.png"></p>
-<p>执行<code>find / -name &quot;libstdc++.so*&quot;</code>查找编译gcc时生成的最新动态库。发现了<code>/usr/local/lib64/libstdc++.so.6.0.28 //最新动态库</code></p>
-<p>而在上图中使用的库是<code>/usr/lib64/libstdc++.so.6</code>。</p>
-<p><img src="https://www.hualigs.cn/image/61773b147d0ed.jpg"></p>
-<p>我们需要修改系统默认动态库的指向，即：重建默认库的软连接。但是学生账号没有权限，寄。</p>
-<p>气死了，马上到最后一步了，现在没有权限什么也干不了，早知道在自己的服务器上跑了！！</p>
 
         </div>
 
@@ -267,11 +226,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：在学校服务器上源码编译安装Mysql-8.0.25并运行</li>
+        <li>Post title：使用mysql实现七种连接方式</li>
         <li>Post author：Josiah</li>
-        <li>Create time：2021-10-26 02:45:55</li>
+        <li>Create time：2021-10-28 11:56:43</li>
         <li>
-            Post link：https://keep.xpoet.cn//2021/10/26/在学校服务器上源码编译安装Mysql-8-0-25并运行/
+            Post link：https://keep.xpoet.cn//2021/10/28/使用mysql实现多种连接方式/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -285,29 +244,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2021/10/28/%E4%BD%BF%E7%94%A8mysql%E5%AE%9E%E7%8E%B0%E5%A4%9A%E7%A7%8D%E8%BF%9E%E6%8E%A5%E6%96%B9%E5%BC%8F/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">使用mysql实现七种连接方式</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2021/10/23/MacOS%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AEnginx/"
+                           href="/2021/10/26/%E5%9C%A8%E5%AD%A6%E6%A0%A1%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85Mysql-8-0-25%E5%B9%B6%E8%BF%90%E8%A1%8C/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">MacOS安装与配置nginx</span>
+                                <span class="post-nav-title-item">在学校服务器上源码编译安装Mysql-8.0.25并运行</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -515,7 +459,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8%E5%AD%A6%E6%A0%A1%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85Mysql-8-0-25%E5%B9%B6%E8%BF%90%E8%A1%8C"><span class="nav-text">在学校服务器上源码编译安装Mysql-8.0.25并运行</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%88%9B%E5%BB%BA%E9%9C%80%E8%A6%81%E7%9A%84%E7%9B%AE%E5%BD%95"><span class="nav-text">一、创建需要的目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81cmake%E7%BC%96%E8%AF%91"><span class="nav-text">二、cmake编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81cmake%E7%BC%96%E8%AF%91"><span class="nav-text">1、cmake编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E8%A7%A3%E5%86%B3g-%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90c-14%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">2、解决g++无法解析c++14的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%AE%89%E8%A3%85%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8E%E5%90%AF%E5%8A%A8"><span class="nav-text">3、安装、初始化与启动</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8mysql%E5%AE%9E%E7%8E%B0%E4%B8%83%E7%A7%8D%E8%BF%9E%E6%8E%A5%E6%96%B9%E5%BC%8F"><span class="nav-text">使用mysql实现七种连接方式</span></a></li></ol>
     </div>
 </div>
         </aside>

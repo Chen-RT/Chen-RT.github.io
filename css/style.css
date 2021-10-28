@@ -2189,7 +2189,7 @@ pre .javascript .function {
   box-sizing: border-box;
   width: 100%;
   overflow: hidden;
-  background: url("https://chenruntong-1301783597.cos.ap-beijing.myqcloud.com/1558690010891.mp4") center center/cover no-repeat;
+  background: url("/images/1558690010891.mp4") center center/cover no-repeat;
   background-position-y: 70px;
 }
 @media (max-width: 780px) {
